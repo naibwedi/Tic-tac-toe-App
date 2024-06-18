@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en" class="preparation">
+<head>
+    <meta charset="UTF-8">
+    <title>TIC-TAC-TOE</title>
+    <style>
+        body {
+            background: url('background-bilde.jpg') no-repeat center fixed;
+            background-size: cover;
+        }
+
+        h1{
+            text-align: center;
+            margin-top: 5vh;
+
+            color: #FBF7F5;
+            font-family: chalky, sans-serif;
+            font-style: normal;
+            font-weight: 400;
+        }
+        #bilde{
+            position: absolute;
+            display: block;
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+
+            margin: auto;
+            margin-left: 10vw;
+            transform: scale(0.95);
+            z-index: -1;
+        }
+        .rektangel{
+            display: grid;
+            justify-content: center;
+            align-items: center;
+            grid-template-columns: auto auto auto;
+            padding: 10px;
+            margin-top: 7em;
+
+
+        }
+        .rektangel :nth-child(n) {
+            /*z-index: 1;*/
+            bottom: 50vh;
+            width: 100px;
+            height: 100px;
+            background-color: #00552b;
+            border: 5px solid #c7c5c5;
+            font-size: 50px;
+            font-family: chalky, sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            color: red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+        }
+
+        #rek1, #rek4, #rek7{
+            border-left-color: transparent;
+        }
+        #rek3, #rek6, #rek9{
+            border-right-color: transparent;
+        }
+        #rek1, #rek2, #rek3{
+            border-top-color: transparent;
+        }
+        #rek7, #rek8, #rek9{
+            border-bottom-color: transparent;
+        }
+
+
+        #display-container{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+
+        }
+        h2{
+           margin-left: 15% ;
+        }
+
+        #display{
+            color: white;
+            display: none;
+            justify-content: center;
+            position: relative;
+            width: 25em;
+            height: 18em;
+            bottom:20em;
+            box-shadow: 0 15px 25px rgba(129, 124, 124, 0.2);
+            border-radius: 5px;
+            backdrop-filter: blur(14px);
+            background-color: rgba(255, 255, 255, 0.2);
+            padding-left: 10%;
+            transform: scale(0.2);
+            opacity: 0;
+        }
+
+        #gif{
+            width: 15em;
+            height: 8em;
+            margin-left: 15%;
+
+        }
+        #btnReset{
+            margin-left: 30%;
+            width: 8em;
+            height: 3em;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        #btnReset:hover {
+            background-color: #00bb00;
+            border: none;
+            box-shadow: 0px 5px 20px 5px #aaeeaa;
+            color: white;
+        }
+        #parUt{
+            color: white;
+            text-align: center;
+            font-size: 15px;
+        }
+        #xtur{
+            color: red;
+            font-size: 17px;
+        }
+        #otur{
+            color: white;
+            font-size: 17px;
+        }
+       #title{
+           color: red;
+
+       }
+       footer{
+           display: flex;
+           justify-content: center;
+            align-self: flex-end;
+            margin-bottom: 10px;
+            margin-left: 20px;
+            margin-right: 10px;
+       }
+      a{
+          color: #32ef08;
+      }
+
+      #loadingWrapper{
+          width: 100%;
+          height: 100%;
+          background-color: #242F3F;
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: flex;
+          justify-content: center;
+          margin: 0;
+          opacity: 1;
+      }
+        .loader {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            position: relative;
+            border: 4px solid #Fff;
+            top: 50%;
+            animation: loader 2s infinite ease;
+        }
+
+        .loader-inner {
+            vertical-align: top;
+            display: inline-block;
+            width: 100%;
+            background-color: #fff;
+            animation: loader-inner 2s infinite ease-in;
+        }
+
+        @keyframes loader {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(180deg);
+            }
+
+            50% {
+                transform: rotate(180deg);
+            }
+
+            75% {
+                transform: rotate(360deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes loader-inner {
+            0% {
+                height: 0%;
+            }
+
+            25% {
+                height: 0%;
+            }
+
+            50% {
+                height: 100%;
+            }
+
+            75% {
+                height: 100%;
+            }
+
+            100% {
+                height: 0%;
+            }
+        }
+
+        @media only screen and (max-width: 700px){
+            #bilde{
+                transform:scale(0.8);
+                margin-left: -3em;
+                margin-top: 1em;
+            }
+            p{
+                margin-bottom: -2em;
+
+            }
+        }
+        @media only screen and (min-width: 769px) {
+            #bilde{
+              margin-left: 20vw;
+
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+<div id="loadingWrapper">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
+
+<article>
+
+    <h1>Tic - <span id="title">Tac</span> - Toe</h1>
+    <p id="parUt">Player <strong id='xtur'>X</strong> sin tur:</p>
+    <img src="board.jpg" id="bilde"></img>
+    <div class="rektangel">
+
+        <div id="rek1"></div>
+        <div id="rek2"></div>
+        <div id="rek3"></div>
+        <div id="rek4"></div>
+        <div id="rek5"></div>
+        <div id="rek6"></div>
+        <div id="rek7"></div>
+        <div id="rek8"></div>
+        <div id="rek9"></div>
+    </div>
+    <div id="display-container">
+        <div id="display">
+            <h2 id="svar">Gratulerer, du har vunnet!</h2>
+            <img src="gratulere.gif" id="gif">
+            <input type="button" id="btnReset" value="Spill igjen">
+        </div>
+    </div>
+    <footer>
+        <p >© Coded by <a href="#">Naib Mehari</a>.</p>
+    </footer>
+</article>
+
+
+
+<!--<p id="x">X</p>-->
+<!--<p id="o">O</p>-->
+<script src="TweenMax.js"></script>
+<script>
+    var rek1 = document.getElementById("rek1");
+    var rek2 = document.getElementById("rek2");
+    var rek3 = document.getElementById("rek3");
+    var rek4 = document.getElementById("rek4");
+    var rek5 = document.getElementById("rek5");
+    var rek6 = document.getElementById("rek6");
+    var rek7 = document.getElementById("rek7");
+    var rek8 = document.getElementById("rek8");
+    var rek9 = document.getElementById("rek9");
+    var gif = document.getElementById("gif");
+    var svar = document.getElementById("svar");
+    var display = document.getElementById("display");
+    var btnReset = document.getElementById("btnReset");
+    var parUt = document.getElementById("parUt");
+    var loadingWrapper = document.getElementById("loadingWrapper");
+
+    var rektangelArray=[rek1,rek2,rek3,rek4,rek5,rek6,rek7,rek8,rek9];
+    // x.innerHTML="O"
+   var count=0;
+
+   //onload animasjon
+
+    window.addEventListener('load', function() {
+         TweenMax.to(loadingWrapper,2,{opacity:0,ease:Power4.easeOut,display:"none"})
+
+    })
+   function hideloading() {
+       loadingWrapper.style.hidden="none"
+   }
+
+    for (let i = 0; i < rektangelArray.length; i++) {
+        btnReset.onclick= function () {
+            display.style.display="none";
+            display.style.opacity=0;
+            display.style.transform="scale(0.2)";
+            rektangelArray.forEach(function (arr) {
+                arr.innerHTML="";
+                count=0;
+            })
+        }
+        rektangelArray[i].addEventListener("click" ,function tegne() {
+            // TweenMax.to(rektangelArray[i],2,{});
+
+             if (rektangelArray[i].innerHTML==""){
+                 count++;
+                 // rektangelArray[i].innerHTML="O"
+                 if (count==0||count==2||count==4||count==6||count==8){
+                     rektangelArray[i].innerHTML="O";
+                     rektangelArray[i].style.color="white";
+                     parUt.innerHTML="Player <strong id='xtur'>X</strong> sin tur:";
+                 }
+                 else if (count==1||count==3||count==5||count==7||count==9){
+                     rektangelArray[i].innerHTML="X";
+                     rektangelArray[i].style.color="red";
+
+                     parUt.innerHTML="Player <strong id='otur'>O</strong> sin tur:";
+                 }
+                 if(rektangelArray[i].innerHTML!=""){
+                    count=count-1;
+
+
+                 }
+                 if(count==8){
+                     gif.src="uavgjort.png";
+                     svar.innerHTML="Opps, det blir uavgjort :("
+                 }
+
+
+                 if (rektangelArray[0].innerHTML=="X"&&rektangelArray[1].innerHTML=="X"&&rektangelArray[2].innerHTML=="X"
+                     ||rektangelArray[0].innerHTML=="X"&&rektangelArray[3].innerHTML=="X"&&rektangelArray[6].innerHTML=="X"
+                     ||rektangelArray[6].innerHTML=="X"&&rektangelArray[7].innerHTML=="X"&&rektangelArray[8].innerHTML=="X"
+                     ||rektangelArray[2].innerHTML=="X"&&rektangelArray[5].innerHTML=="X"&&rektangelArray[8].innerHTML=="X"
+                     ||rektangelArray[0].innerHTML=="X"&&rektangelArray[4].innerHTML=="X"&&rektangelArray[8].innerHTML=="X"
+                     ||rektangelArray[2].innerHTML=="X"&&rektangelArray[4].innerHTML=="X"&&rektangelArray[6].innerHTML=="X"
+                     ||rektangelArray[1].innerHTML=="X"&&rektangelArray[4].innerHTML=="X"&&rektangelArray[7].innerHTML=="X"
+                     ||rektangelArray[3].innerHTML=="X"&&rektangelArray[4].innerHTML=="X"&&rektangelArray[5].innerHTML=="X"){
+
+                     setTimeout(function (){
+                         TweenMax.to("#display",1,{display:"block",rotation:"360_cw",scale:1,opacity:1})
+                         // display.style.display="block"
+                     }, 100);
+
+                 }
+                 if (rektangelArray[0].innerHTML=="O"&&rektangelArray[1].innerHTML=="O"&&rektangelArray[2].innerHTML=="O"
+                     ||rektangelArray[0].innerHTML=="O"&&rektangelArray[3].innerHTML=="O"&&rektangelArray[6].innerHTML=="O"
+                     ||rektangelArray[6].innerHTML=="O"&&rektangelArray[7].innerHTML=="O"&&rektangelArray[8].innerHTML=="O"
+                     ||rektangelArray[2].innerHTML=="O"&&rektangelArray[5].innerHTML=="O"&&rektangelArray[8].innerHTML=="O"
+                     ||rektangelArray[0].innerHTML=="O"&&rektangelArray[4].innerHTML=="O"&&rektangelArray[8].innerHTML=="O"
+                     ||rektangelArray[2].innerHTML=="O"&&rektangelArray[4].innerHTML=="O"&&rektangelArray[6].innerHTML=="O"
+                     ||rektangelArray[1].innerHTML=="O"&&rektangelArray[4].innerHTML=="O"&&rektangelArray[7].innerHTML=="O"
+                     ||rektangelArray[3].innerHTML=="O"&&rektangelArray[4].innerHTML=="O"&&rektangelArray[5].innerHTML=="O"){
+                     setTimeout(function (){
+                         TweenMax.to("#display",1,{display:"block",rotation:"360_cw",scale:1,opacity:1})
+                         // display.style.display="block"
+                     }, 100);
+                 }
+
+             }
+
+        })
+    }
+
+</script>
+</body>
+</html>
